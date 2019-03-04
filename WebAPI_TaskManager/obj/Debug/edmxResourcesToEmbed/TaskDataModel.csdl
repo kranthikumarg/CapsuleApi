@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TaskManagerDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Task">
+    <Key>
+      <PropertyRef Name="Task_ID" />
+    </Key>
+    <Property Name="Task_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Parent_ID" Type="Int32" />
+    <Property Name="Task1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Start_Date" Type="DateTime" Precision="0" />
+    <Property Name="End_Date" Type="DateTime" Precision="0" />
+    <Property Name="Priority" Type="Int32" />
+  </EntityType>
+  <EntityContainer Name="TaskManagerDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Tasks" EntityType="Self.Task" />
+    <FunctionImport Name="sp_AddTasks">
+      <Parameter Name="Task_ID" Mode="In" Type="Int32" />
+      <Parameter Name="Parent_ID" Mode="In" Type="Int32" />
+      <Parameter Name="Task" Mode="In" Type="String" />
+      <Parameter Name="Start_Date" Mode="In" Type="DateTime" />
+      <Parameter Name="Priority" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_SearchTasks" ReturnType="Collection(TaskManagerDBModel.sp_SearchTasks_Result)">
+      <Parameter Name="Parent_ID" Mode="In" Type="Int32" />
+      <Parameter Name="Task" Mode="In" Type="String" />
+      <Parameter Name="Start_Date" Mode="In" Type="DateTime" />
+      <Parameter Name="End_Date" Mode="In" Type="DateTime" />
+      <Parameter Name="Priority" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="sp_SearchTasks_Result">
+    <Property Type="Int32" Name="Task_ID" Nullable="false" />
+    <Property Type="Int32" Name="Parent_ID" Nullable="true" />
+    <Property Type="String" Name="Task" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="Start_Date" Nullable="true" />
+    <Property Type="DateTime" Name="End_Date" Nullable="true" />
+    <Property Type="Int32" Name="Priority" Nullable="true" />
+  </ComplexType>
+</Schema>

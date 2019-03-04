@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TaskManagerDBModelStoreContainer" CdmEntityContainer="TaskManagerDBEntities">
+    <EntitySetMapping Name="Tasks">
+      <EntityTypeMapping TypeName="TaskManagerDBModel.Task">
+        <MappingFragment StoreEntitySet="Tasks">
+          <ScalarProperty Name="Task_ID" ColumnName="Task_ID" />
+          <ScalarProperty Name="Parent_ID" ColumnName="Parent_ID" />
+          <ScalarProperty Name="Task1" ColumnName="Task" />
+          <ScalarProperty Name="Start_Date" ColumnName="Start_Date" />
+          <ScalarProperty Name="End_Date" ColumnName="End_Date" />
+          <ScalarProperty Name="Priority" ColumnName="Priority" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_AddTasks" FunctionName="TaskManagerDBModel.Store.sp_AddTasks" />
+    <FunctionImportMapping FunctionImportName="sp_SearchTasks" FunctionName="TaskManagerDBModel.Store.sp_SearchTasks">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TaskManagerDBModel.sp_SearchTasks_Result">
+          <ScalarProperty Name="Task_ID" ColumnName="Task_ID" />
+          <ScalarProperty Name="Parent_ID" ColumnName="Parent_ID" />
+          <ScalarProperty Name="Task" ColumnName="Task" />
+          <ScalarProperty Name="Start_Date" ColumnName="Start_Date" />
+          <ScalarProperty Name="End_Date" ColumnName="End_Date" />
+          <ScalarProperty Name="Priority" ColumnName="Priority" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

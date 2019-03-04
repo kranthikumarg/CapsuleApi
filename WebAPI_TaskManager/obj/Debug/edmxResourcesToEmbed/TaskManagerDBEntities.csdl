@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TaskManagerDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Parent_Task">
+    <Key>
+      <PropertyRef Name="Parent_ID" />
+    </Key>
+    <Property Name="Parent_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Parent_Tasks" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Task">
+    <Key>
+      <PropertyRef Name="Task_ID" />
+    </Key>
+    <Property Name="Task_ID" Type="Int32" Nullable="false" />
+    <Property Name="Parent_ID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Tasks" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Start_Date" Type="DateTime" Precision="0" />
+    <Property Name="End_Date" Type="DateTime" Precision="0" />
+    <Property Name="Priority" Type="Int32" />
+  </EntityType>
+  <EntityContainer Name="TaskManagerDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Parent_Task" EntityType="Self.Parent_Task" />
+    <EntitySet Name="Tasks" EntityType="Self.Task" />
+    <EntitySet Name="Task1" EntityType="TaskManagerDBModel.Task1" />
+  </EntityContainer>
+  <EntityType Name="Task1">
+    <Key>
+      <PropertyRef Name="Task_ID" />
+    </Key>
+    <Property Name="Task_ID" Type="Int32" Nullable="false" />
+    <Property Name="Parent_ID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Tasks" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Start_Date" Type="DateTime" Precision="3" />
+    <Property Name="End_Date" Type="DateTime" Precision="3" />
+    <Property Name="Priority" Type="Int32" />
+  </EntityType>
+</Schema>

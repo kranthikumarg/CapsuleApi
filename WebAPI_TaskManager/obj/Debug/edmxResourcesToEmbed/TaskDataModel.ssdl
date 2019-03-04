@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TaskManagerDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'TaskManagerDB.dbo.Parent_Task' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="Parent_Task">
+          <Property Name="Parent_ID" Type="int" />
+          <Property Name="Parent_Task" Type="varchar" MaxLength="50" />
+        </EntityType>-->
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'TaskManagerDB.dbo.Tasks' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Tasks">
+    <Key>
+      <PropertyRef Name="Task_ID" />
+    </Key>
+    <Property Name="Task_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Parent_ID" Type="int" />
+    <Property Name="Task" Type="varchar" MaxLength="50" />
+    <Property Name="Start_Date" Type="date" />
+    <Property Name="End_Date" Type="date" />
+    <Property Name="Priority" Type="int" />
+  </EntityType>
+  <Function Name="sp_AddTasks" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Task_ID" Type="int" Mode="In" />
+    <Parameter Name="Parent_ID" Type="int" Mode="In" />
+    <Parameter Name="Task" Type="varchar" Mode="In" />
+    <Parameter Name="Start_Date" Type="datetime" Mode="In" />
+    <Parameter Name="Priority" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_SearchTasks" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Parent_ID" Type="int" Mode="In" />
+    <Parameter Name="Task" Type="varchar" Mode="In" />
+    <Parameter Name="Start_Date" Type="datetime" Mode="In" />
+    <Parameter Name="End_Date" Type="datetime" Mode="In" />
+    <Parameter Name="Priority" Type="int" Mode="In" />
+  </Function>
+  <EntityContainer Name="TaskManagerDBModelStoreContainer">
+    <EntitySet Name="Tasks" EntityType="Self.Tasks" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Tasks].[Task_ID] AS [Task_ID], 
+    [Tasks].[Parent_ID] AS [Parent_ID], 
+    [Tasks].[Task] AS [Task], 
+    [Tasks].[Start_Date] AS [Start_Date], 
+    [Tasks].[End_Date] AS [End_Date], 
+    [Tasks].[Priority] AS [Priority]
+    FROM [dbo].[Tasks] AS [Tasks]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>
