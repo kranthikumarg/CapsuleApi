@@ -107,11 +107,11 @@ namespace WebAPI_TaskManager.Tests.Controllers
 
 
         [TestMethod]
-        public void AddTask_API()
+        public void AddTask()
         {
             TaskAdd task = new TaskAdd();
             task.Tasks = "Test Test123";
-            task.ParentTasks = "Test1";
+            task.ParentTasks = "1";
             task.Priority = "12";
             task.StartDate = "02-02-2019";
 
@@ -126,48 +126,7 @@ namespace WebAPI_TaskManager.Tests.Controllers
             Assert.AreEqual("DefaultApi", createdResult.RouteName);
             Assert.AreEqual(taskID, createdResult.RouteValues["taskID"]);
         }
-
-        [TestMethod]
-        public void AddTask2_API()
-        {
-            TaskAdd task = new TaskAdd();
-            task.Tasks = "Test Test124";
-            task.ParentTasks = "Test Test123";
-            task.Priority = "12";
-            task.StartDate = "04-02-2019";
-
-            TaskManagerEntities taskEnt = new TaskManagerEntities();
-            var taskID = taskEnt.Tasks.Max(t => t.Task_ID) + 1;            
-
-            var controllerAPI = new TaskManagerController();
-            IHttpActionResult actionResult = controllerAPI.AddTask(task);
-            var createdResult = actionResult as CreatedAtRouteNegotiatedContentResult<Models.Task>;
-
-            Assert.IsNotNull(createdResult);
-            Assert.AreEqual("DefaultApi", createdResult.RouteName);
-            Assert.AreEqual(taskID, createdResult.RouteValues["taskID"]);
-        }
-
-        [TestMethod]
-        public void AddTask3_API()
-        {
-            TaskAdd task = new TaskAdd();
-            task.Tasks = "Test Test125";
-            task.ParentTasks = "Test2";
-            task.Priority = "12";
-            task.StartDate = "04-02-2019";
-
-            TaskManagerEntities taskEnt = new TaskManagerEntities();
-            var taskID = taskEnt.Tasks.Max(t => t.Task_ID) + 1;
-
-            var controllerAPI = new TaskManagerController();
-            IHttpActionResult actionResult = controllerAPI.AddTask(task);
-            var createdResult = actionResult as CreatedAtRouteNegotiatedContentResult<Models.Task>;
-
-            Assert.IsNotNull(createdResult);
-            Assert.AreEqual("DefaultApi", createdResult.RouteName);
-            Assert.AreEqual(taskID, createdResult.RouteValues["taskID"]);
-        }
+        
 
         [TestMethod]
         public void EditTask_API()
@@ -187,26 +146,7 @@ namespace WebAPI_TaskManager.Tests.Controllers
             Assert.IsNotNull(contentResult.Content);            
         }
 
-        [TestMethod]
-        public void EditTask2_API()
-        {
-            TaskEdit task = new TaskEdit();
-            task.TaskId = "6";
-            task.Tasks = "Test Test123";
-            task.ParentTasks = "Test2";
-            task.Priority = "16";
-            task.StartDate = "03-02-2019";
-            task.EndDate = "04-02-2019";
-
-            var controllerAPI = new TaskManagerController();
-            IHttpActionResult actionResult = controllerAPI.EditTask(task);
-            var contentResult = actionResult as OkNegotiatedContentResult<Models.Task>;
-
-            Assert.IsNotNull(contentResult);
-            Assert.IsNotNull(contentResult.Content);
-        }
-
-
+        
         [TestMethod]
         public void EndTask_API()
         {
